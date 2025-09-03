@@ -7,6 +7,8 @@ This repository is dedicated to implementing a variety of geometric algorithms i
 - **Sweep Line Algorithm for Segment Intersection**  
   Efficiently detects all intersection points among a set of 2D line segments using an event-driven sweep line approach.
 
+  ![Sweep Line Algorithm Illustration](images/line_segments_intersections.png)
+
 ## Planned Extensions
 
 The repository is designed to grow and each class of algorithms will be implemented in its own header/source file for clarity and modularity.
