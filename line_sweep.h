@@ -1,7 +1,4 @@
-﻿// geometric_algorithms.h : Include file for standard system include files,
-// or project specific include files.
-
-#pragma once
+﻿#pragma once
 
 #include <iostream>
 #include <cmath>
@@ -12,59 +9,17 @@
 #include <sstream>
 #include <optional>
 
+#include "common.h"
+
 namespace lineSweep {
-	/**
- * @brief Represents a 2D point and provides basic arithmetic operations and norm calculation.
- */
-	class Point {
-	public:
-		double x;
-		double y;
-
-		Point(double xCoord = 0, double yCoord = 0) : x{ xCoord }, y{ yCoord } {}
-
-		Point operator-(const Point& other) const {
-			return Point(x - other.x, y - other.y);
-		}
-
-		Point operator+(const Point& other) const {
-			return Point(x + other.x, y + other.y);
-		}
-
-		Point operator/(double k) const {
-			return Point(x / k, y / k);
-		}
-
-		Point mult(double k) const {
-			return Point(x * k, y * k);
-		}
-
-		double dot(const Point& other) const {
-			return x * other.x + y * other.y;
-		}
-
-		double cross(const Point& other) const {
-			return x * other.y - y * other.x;
-		}
-
-		double norm() const {
-			return std::sqrt(x * x + y * y);
-		}
-
-		void set(double xCoord, double yCoord) {
-			x = xCoord;
-			y = yCoord;
-		}
-	};
-
 	/**
 	 * @brief Represents a 2D line segment and provides functionality for sweep line algorithms, including computing the segment's x-coordinate at a given sweep line position and comparison based on this value.
 	 */
 	class LineSegment {
 	public:
-		Point upper;
-		Point lower;
-		Point dir; // Direction vector from start to end
+		geo::Point2D upper;
+		geo::Point2D lower;
+		geo::Point2D dir; // Direction vector from start to end
 		double sweepYPosition{}; // Current position of the sweep line
 		double xAtSweepY{}; // x-coordinate of the segment at the sweep line
 
@@ -106,11 +61,11 @@ namespace lineSweep {
 			return xAtSweepY < other.xAtSweepY;
 		}
 
-		double orientation_test(const Point& p) const {
+		double orientation_test(const geo::Point2D& p) const {
 			return (lower - upper).cross(p - upper);
 		}
 
-		std::optional<Point> intersect(const LineSegment& other) const {
+		std::optional<geo::Point2D> intersect(const LineSegment& other) const {
 
 			double result1 = orientation_test(other.upper) * orientation_test(other.lower);
 			double result2 = other.orientation_test(upper) * other.orientation_test(lower);
@@ -122,7 +77,7 @@ namespace lineSweep {
 
 				double t = numer / denom;
 
-				Point intersection = other.upper + other.dir.mult(t);
+				geo::Point2D intersection = other.upper + other.dir.mult(t);
 
 				return intersection;
 			}
@@ -147,12 +102,12 @@ namespace lineSweep {
 	 */
 	class Event {
 	public:
-		Point p;
+		geo::Point2D p;
 		LineSegment* seg1;
 		LineSegment* seg2; // nullptr if not an intersection
 		EventType type;
 
-		Event(EventType t, LineSegment* s1, LineSegment* s2 = nullptr, Point intersection_point = Point(0, 0))
+		Event(EventType t, LineSegment* s1, LineSegment* s2 = nullptr, geo::Point2D intersection_point = geo::Point2D(0, 0))
 			: type{ t }, seg1{ s1 }, seg2{ s2 } {
 
 			if (t == EventType::INTERSECTION) {

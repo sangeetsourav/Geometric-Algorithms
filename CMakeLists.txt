@@ -17,7 +17,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Add source to this project's executable.
-add_executable (geometric_algorithms "geometric_algorithms.cpp" "line_sweep.h")
+add_executable (geometric_algorithms "geometric_algorithms.cpp" "line_sweep.h"  "delauney.h" "common.h")
 
 # Copy data files after building the target
 add_custom_command(TARGET geometric_algorithms POST_BUILD
