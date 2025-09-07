@@ -25,6 +25,7 @@ int main()
 	{
 		std::string input_file = R"(.\input\input_triangulation.txt)";
 		delauney::Mesh tri(input_file);
-		return 0;
 	}
+
+	return 0;
 }

@@ -7,6 +7,7 @@
 #include<iostream>
 #include<format>
 #include<memory>
+
 namespace geo {
 	/**
 	 * @brief Represents a 2D point and provides basic arithmetic operations and norm calculation.
@@ -53,6 +54,12 @@ namespace geo {
 	};
 
 	namespace mesh {
+		/**
+		 * @brief A half-edge data structure for representing and manipulating polygonal meshes.
+		 * 
+		 * This class encapsulates the half-edge representation of a mesh, including vertices, edges, faces, and half-edges.
+		 * It provides methods for constructing the mesh from a set of points and faces. This implementation uses smart pointers for memory management.
+		*/
 		class HalfEdgeDataStructure
 		{
 			// Forward declarations
@@ -62,19 +69,19 @@ namespace geo {
 
 			class HalfEdge {
 			public:
-				std::unique_ptr<Vertex> origin;
-				std::unique_ptr<HalfEdge> twin;
-				std::unique_ptr<HalfEdge> next;
-				std::unique_ptr<Face> face;
+				std::shared_ptr<Vertex> origin;
+				std::shared_ptr<HalfEdge> twin;
+				std::shared_ptr<HalfEdge> next;
+				std::shared_ptr<Face> face;
 			};
 
 			class Vertex {
 			public:
-				const Point2D* position;
-				std::unique_ptr<HalfEdge> incident_half_edge;
-				std::unique_ptr<Edge> edge;
+				// Using a weak_ptr since the Point2D is owned elsewhere but we want prevent dangling pointers when the Point2D object is deleted
+				std::weak_ptr<const Point2D> position;
+				std::shared_ptr<HalfEdge> incident_half_edge;
 
-				Vertex(const Point2D* pos) : position(pos), incident_half_edge(nullptr), edge(nullptr) {}
+				Vertex(std::shared_ptr<Point2D> &pos) : position(pos), incident_half_edge(nullptr) {}
 			};
 
 			class Edge {
@@ -84,31 +91,35 @@ namespace geo {
 
 			class Face {
 			public:
-				HalfEdge* half_edge;
+				std::shared_ptr<HalfEdge> half_edge;
 			};
 
-			std::map<int, Vertex> m_vertices;
-			std::map<int, Face> m_faces;
-			std::map<int, Edge> m_edges;
+			std::map<int, std::shared_ptr<Vertex>> m_vertices;
+			std::map<int, std::shared_ptr<Face>> m_faces;
+			std::map<int, std::shared_ptr<Edge>> m_edges;
+			std::map<int, std::shared_ptr<HalfEdge>> m_half_edges;
 
 		public:
 			HalfEdgeDataStructure() = default;
 
-			HalfEdgeDataStructure(std::map<int, geo::Point2D> &points, std::map<int, std::vector<int>> &faces)
+			HalfEdgeDataStructure(std::map<int, std::shared_ptr<geo::Point2D>> &points, std::map<int, std::vector<int>> &faces)
 			{
 				// Initialize vertices
-				for (const auto p: points)
+				for (auto p: points)
 				{
-					m_vertices.emplace(p.first, Vertex(&p.second));
+					m_vertices.emplace(p.first, std::make_shared<Vertex>(p.second));
 				}
 
-				for (const auto f: faces )
-				{
-					for (auto it = f.second.begin(); it != f.second.end(); it++)
-					{
+				//for (const auto f: faces )
+				//{
+				//	for (size_t i = 0; i < f.second.size(); i++)
+				//	{
+				//		if (i!=f.second.size()-1)
+				//		{
 
-					}
-				}
+				//		}
+				//	}
+				//}
 
 			}
 		};
