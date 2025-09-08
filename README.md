@@ -9,6 +9,14 @@ This repository is dedicated to implementing a variety of geometric algorithms i
 
   ![Sweep Line Algorithm Illustration](images/line_segments_intersections.png)
 
+## Work in Progress
+
+- **Delaunay Triangulation**  
+  Implementation of Delaunay triangulation for a set of points in 2D space. This will allow efficient mesh generation and is foundational for many geometric algorithms.
+
+- **Half-Edge Data Structure**  
+  A flexible data structure for representing polygonal meshes, enabling efficient traversal and manipulation of mesh connectivity. This will support advanced algorithms and mesh operations.
+
 ## Planned Extensions
 
 The repository is designed to grow and each class of algorithms will be implemented in its own header/source file for clarity and modularity.
@@ -37,9 +45,11 @@ The repository is designed to grow and each class of algorithms will be implemen
 
 ## Repository Structure
 
-- `geometric_algorithms.cpp` — Main entry point.
-- `line_sweep.h` — Sweep line algorithm implementation.
-- Future header/source files — For additional geometric algorithms.
+- `geometric_algorithms.cpp` — Main entry point; handles input/output and orchestrates algorithm execution.
+- `line_sweep.h` — Sweep line algorithm implementation for segment intersection detection.
+- `delauney.h` — (WIP) Delaunay triangulation algorithm implementation.
+- `common.h` — Common types, utilities, and geometric primitives shared across algorithms.
+- Future header/source files — For additional geometric algorithms and data structures.
 - `CMakeLists.txt` — Build configuration; defines how the project is built using CMake.
 - `vcpkg.json` — Declares external dependencies managed by [vcpkg](https://github.com/microsoft/vcpkg); currently empty but ready for future package requirements.
 - `vcpkg-configuration.json` — Configures vcpkg behavior for this project, such as registries or overlay ports.
