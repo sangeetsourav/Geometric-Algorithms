@@ -36,13 +36,22 @@ The repository is designed to grow and each class of algorithms will be implemen
 
 ### Running
 
-- Prepare an input file (e.g., `input/line_sweep_input.txt`) with each line containing four numbers: `x1 y1 x2 y2` (segment endpoints).
-- The input file will copied to the build directory automatically by CMake.
+- For the **Sweep Line Algorithm**, prepare an input file (e.g., `input/line_sweep_input.txt`) with each line containing four numbers: `x1 y1 x2 y2` (segment endpoints).
+- For the **Delaunay Triangulation**, prepare an input file (e.g., `input/input_triangulation.txt`) with
+	- First line containing number of points and then number of faces
+	- From the second line onwards, specify 3 numbers: `pointID, x, y` (id of the point, coordinates of the point).
+	- After all points are specified, specify faces with point ids `pointID1, pointID2, point ID3` (3 point ids per face).
+- The input file will be copied to the build directory automatically by CMake.
 - Run the executable:
 ```
    geometric_algorithms.exe
 ```
-- The program will process the input and output intersection statistics.
+
+### Output
+
+- The program will print the
+	- Intersection statistics (for line sweep)
+	- Triangulation results (for Delaunay)
 
 ## Repository Structure
 
@@ -50,6 +59,8 @@ The repository is designed to grow and each class of algorithms will be implemen
 - `line_sweep.h` — Sweep line algorithm implementation for segment intersection detection.
 - `delauney.h` — (WIP) Delaunay triangulation algorithm implementation.
 - `common.h` — Common types, utilities, and geometric primitives shared across algorithms.
+	- `Point2D` — Represents a point in 2D space.
+	- `HalfEdgeDataStructure` — (WIP) Represents the half-edge data structure for mesh representation.
 - `CMakeLists.txt` — Build configuration; defines how the project is built using CMake.
 - `vcpkg.json` — Declares external dependencies managed by [vcpkg](https://github.com/microsoft/vcpkg); currently empty but ready for future package requirements.
 - `vcpkg-configuration.json` — Configures vcpkg behavior for this project, such as registries or overlay ports.
