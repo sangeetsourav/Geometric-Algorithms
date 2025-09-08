@@ -25,7 +25,8 @@ The repository is designed to grow and each class of algorithms will be implemen
 
 ### Prerequisites
 
-- **C++20** compatible compiler (Visual Studio 2022 recommended)
+- **C++20** compatible compiler 
+	- Tested with Visual Studio 2022 and g++ 13.3.0
 - **CMake** ≥ 3.14
 
 ### Build Instructions
