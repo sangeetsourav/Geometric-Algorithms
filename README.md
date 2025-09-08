@@ -49,7 +49,6 @@ The repository is designed to grow and each class of algorithms will be implemen
 - `line_sweep.h` — Sweep line algorithm implementation for segment intersection detection.
 - `delauney.h` — (WIP) Delaunay triangulation algorithm implementation.
 - `common.h` — Common types, utilities, and geometric primitives shared across algorithms.
-- Future header/source files — For additional geometric algorithms and data structures.
 - `CMakeLists.txt` — Build configuration; defines how the project is built using CMake.
 - `vcpkg.json` — Declares external dependencies managed by [vcpkg](https://github.com/microsoft/vcpkg); currently empty but ready for future package requirements.
 - `vcpkg-configuration.json` — Configures vcpkg behavior for this project, such as registries or overlay ports.
