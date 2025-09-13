@@ -8,6 +8,7 @@
 #include <fstream>
 #include <sstream>
 #include <optional>
+#include <spdlog/spdlog.h>
 
 #include "common.h"
 
@@ -162,16 +163,16 @@ namespace lineSweep {
 
 		void loadSegmentsFromFile(std::string file)
 		{
-			std::cout << std::format("Attempting to open file {}\n", file);
+			spdlog::info(std::format("Attempting to open file {}", file));
 
 			std::ifstream inputFile(file);
 			if (!inputFile.is_open()) {
-				std::cout << "Error: Could not open file.\n";
+				spdlog::error("Could not open file.");
 				return;
 			}
 			else
-			{
-				std::cout << "Opened file successfully.\n";
+			{	
+				spdlog::info("Opened file successfully.");
 			}
 
 			std::string line;
@@ -183,8 +184,8 @@ namespace lineSweep {
 			}
 
 			inputFile.close();
-
-			std::cout << std::format("Loaded {} segments from file.\n", segments.size());
+			
+			spdlog::info(std::format("Loaded {} segments from file.", segments.size()));
 		}
 
 		void handleUpperEvent(const Event& event)
@@ -295,7 +296,7 @@ namespace lineSweep {
 				// Set sweep position
 				sweepY = ev.p.y;
 
-				std::cout << std::format("Event no. {}: Type {}\n", eventCount, static_cast<int>(ev.type));
+				spdlog::info(std::format("Event no. {}: Type {}", eventCount, static_cast<int>(ev.type)));
 
 				if (ev.type == EventType::UPPER)
 				{
@@ -313,7 +314,8 @@ namespace lineSweep {
 
 			}
 
-			std::cout << std::format("Total events processed: {}, Intersections found: {}\n", eventCount, intersectionCount);
+			spdlog::info(std::format("Total events processed: {}, Intersections found: {}", eventCount, intersectionCount));
+			spdlog::info("Sweep complete.");
 		}
 	};
 

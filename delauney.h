@@ -8,6 +8,7 @@
 #include <fstream>
 #include <sstream>
 #include <memory>
+#include <spdlog/spdlog.h>
 
 namespace delauney {
 	class Mesh {
@@ -31,16 +32,16 @@ namespace delauney {
 		 */
 		Mesh(std::string file)
 		{
-			std::cout << std::format("Attempting to open file {}\n", file);
+			spdlog::info(std::format("Attempting to open file {}", file));
 
 			std::ifstream inputFile(file);
 			if (!inputFile.is_open()) {
-				std::cout << "Error: Could not open file.\n";
+				spdlog::error("Could not open file.");
 				return;
 			}
 			else
 			{
-				std::cout << "Opened file successfully.\n";
+				spdlog::info("Opened file successfully.");
 			}
 
 			std::string line;

@@ -19,6 +19,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # Add source to this project's executable.
 add_executable (geometric_algorithms "geometric_algorithms.cpp" "line_sweep.h"  "delauney.h" "common.h")
 
+find_package(spdlog CONFIG REQUIRED)
+    target_link_libraries(geometric_algorithms PRIVATE spdlog::spdlog_header_only)
+
 # Copy data files after building the target
 add_custom_command(TARGET geometric_algorithms POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
