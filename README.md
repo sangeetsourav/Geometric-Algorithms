@@ -6,6 +6,10 @@ This repository is dedicated to implementing a variety of geometric algorithms i
 
 - **Sweep Line Algorithm for Segment Intersection**  
   Efficiently detects all intersection points among a set of 2D line segments using an event-driven sweep line approach.
+- **Logging with spdlog**  
+  Uses [spdlog](https://github.com/gabime/spdlog) for fast, header-only logging throughout the project.
+- **Memory Safety with Smart Pointers**  
+  Modern C++ smart pointers (`std::unique_ptr`, `std::shared_ptr`) are used throughout the codebase to ensure safe and automatic memory management.
 
   ![Sweep Line Algorithm Illustration](images/line_segments_intersections.png)
 
@@ -26,8 +30,9 @@ The repository is designed to grow and each class of algorithms will be implemen
 ### Prerequisites
 
 - **C++20** compatible compiler 
-	- Tested with Visual Studio 2022 and g++ 13.3.0
+    - Tested with Visual Studio 2022 and g++ 13.3.0
 - **CMake** ≥ 3.14
+- **vcpkg** for dependency management (automatically installs spdlog and future dependencies)
 
 ### Build Instructions
 
@@ -59,10 +64,10 @@ The repository is designed to grow and each class of algorithms will be implemen
 - `line_sweep.h` — Sweep line algorithm implementation for segment intersection detection.
 - `delauney.h` — (WIP) Delaunay triangulation algorithm implementation.
 - `common.h` — Common types, utilities, and geometric primitives shared across algorithms.
-	- `Point2D` — Represents a point in 2D space.
-	- `HalfEdgeDataStructure` — (WIP) Represents the half-edge data structure for mesh representation.
+    - `Point2D` — Represents a point in 2D space.
+    - `HalfEdgeDataStructure` — (WIP) Represents the half-edge data structure for mesh representation.
 - `CMakeLists.txt` — Build configuration; defines how the project is built using CMake.
-- `vcpkg.json` — Declares external dependencies managed by [vcpkg](https://github.com/microsoft/vcpkg); currently empty but ready for future package requirements.
+- `vcpkg.json` — Declares external dependencies managed by [vcpkg](https://github.com/microsoft/vcpkg); currently includes spdlog.
 - `vcpkg-configuration.json` — Configures vcpkg behavior for this project, such as registries or overlay ports.
 - `CMakePresets.json` — Contains CMake build and configure presets for consistent builds across environments and IDEs.
 
